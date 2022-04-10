@@ -2,22 +2,19 @@ import React, { useState } from 'react';
 import { Dimensions, LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { enableScreens } from "react-native-screens";
 import { Provider } from 'react-native-paper';
 import Theme from './components/Theme';
-import SigninScreen from './screens/SigninScreen';
-import SignupScreen from './screens/SignupScreen';
-import Home from './screens/HomeScreen';
-import AddEvent from './screens/AddEventScreen';
-import Contact from './screens/ContactScreen';
-import Events from './screens/EventScreen';
-import ResultsShow from './search/ResultsShowScreen'
-import Profile from './screens/ProfileScreen';
-import Approved from './screens/SavedEventsScreen';
+import DrawerMenu from './menu/DrawerMenu';
 import MyTabBar from './components/MyTabBar';
-import CustomNavigationBar from './components/CustomNavigationBar';
-import SearchByPrice from './search/SearchByPrice';
+import MainStack from './components/MainStack'
+import Tabs from './menu/Tabs'
+import { Provider as AuthProvider } from './context/EventContext';
+import Signup from './screens/SignupScreen';
+import Signin from './screens/SigninScreen';
+import Home from './screens/HomeScreen';
+
+
 
 
 LogBox.ignoreLogs([
@@ -29,20 +26,9 @@ enableScreens();
 
 
 const { width } = Dimensions.get("screen");
-const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
+const RootStack = createStackNavigator();
 
-// const DrawerNav = () => {
-//   <Drawer.Navigator >
-//     <Drawer.Screen name="HomeScreen" component={HomeScreen} />
-//     <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
-//     <Drawer.Screen name="AddEventScreen" component={AddEventScreen} />
-//     <Drawer.Screen name="Event" component={EventScreen} />
-//     <Drawer.Screen name="ResultsShow" component={ResultsShowScreen} />
-//     <Drawer.Screen name="SavedEvent" component={SavedEventScreen} />
-//     <Drawer.Screen name="Contact" component={ContactScreen} />
-//   </Drawer.Navigator>
-// }
+
 export default function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -50,32 +36,29 @@ export default function App() {
   console.log()
 
   return (
-    <Provider theme={Theme}>
-      <NavigationContainer >
-        <Tab.Navigator tabBar={props => <MyTabBar {...props} screenOptions={{
-          header: (props) => <CustomNavigationBar {...props} />
-        }} />}>
-          <Tab.Screen name="Home" component={Home} />
-          <Tab.Screen name='Signin' component={SigninScreen} />
-          <Tab.Screen name='Signup' component={SignupScreen} />
-          <Tab.Screen name="Profile" component={Profile} />
-          <Tab.Screen name="AddEvent" component={AddEvent} />
-          <Tab.Screen name="Events" component={Events} />
-          <Tab.Screen name="ResultsShow" component={ResultsShow} />
-          <Tab.Screen name="Approved" component={Approved} />
-          <Tab.Screen name="Contact" component={Contact} />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </Provider>
+    <AuthProvider>
+      <Provider theme={Theme}>
+        <NavigationContainer   >
+          <RootStack.Navigator initialRouteName='Home' >
+            {isLoggedIn ? (
+              // Screens for logged in users
+              <RootStack.Group>
+                <RootStack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
+                <RootStack.Screen name="Main" component={MainStack} />
+              </RootStack.Group>
+            ) : (
+              // Auth screens
+              <RootStack.Group screenOptions={{ headerShown: false }}>
+                <RootStack.Screen name="Home" component={Home} />
+                <RootStack.Screen name="Signin" component={Signin} />
+                <RootStack.Screen name="Signup" component={Signup} />
+              </RootStack.Group>
+            )}
+          </RootStack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    </AuthProvider>
   );
-
-  //   return (
-  //     <Provider>
-  //       <NavigationContainer>
-
-  //       </NavigationContainer>
-  //     </Provider>
-  //   )
 }
 
 

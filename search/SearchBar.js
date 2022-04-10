@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Button, ScrollView } from 'react-native';
 import { Feather } from '@expo/vector-icons'
-import CategoriesData, { category } from './CategoriesData'
-import SearchableDropdown from 'react-native-searchable-dropdown';
-import Background from '../components/Background';
+// import CategoriesData, { category } from './CategoriesData'
+// import SearchableDropdown from 'react-native-searchable-dropdown';
+// import Background from '../components/Background';
 
 
 const SearchBar = ({ categories, location, onCategoryChange, onLocationChange, onSubmit, filterResultsByLowPrice, filterResultsByMediumPrice, filterResultsByExpensivePrice }) => {

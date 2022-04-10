@@ -5,14 +5,16 @@ import { Button } from 'react-native-paper';
 import Background from '../components/Background';
 import Logo from '../components/Logo';
 import image from '../assets/landing-page.png'
-import  { signInWithPopup }  from '../components/GoogleAuth'
+import { signInWithPopup } from '../components/GoogleAuth'
 import Spacer from '../components/Spacer';
 import { FontAwesome } from '@expo/vector-icons';
 import Fil from '../components/Fil-logo'
+// import Poppins from '../fonts/Poppins';
+
 
 
 const HomeScreen = ({ navigation }) => {
-  
+
   // const signInWithGoogle = async () => {
   //   const provider = new auth.GoogleAuthProvider();
   //   auth.useDeviceLanguage();
@@ -32,74 +34,78 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const text = "Sign in"
-  const routeName = "SignInScreen"
+  const routeName = "Signin"
+
+
 
   return (
     <Background>
       <Fil />
-      <Logo style={styles.logo} />
+      <Logo  />
       <View style={styles.container}>
-        <ImageBackground source={image} resizeMode="contain" style={styles.image}>
-        </ImageBackground>
+        <View style={styles.imageContainer}>
+          <ImageBackground source={image} resizeMode="cover" style={styles.image} />
+        </View>
+
         <Text style={styles.text}>Where fathers can find,</Text>
         <Text style={styles.text}>create and share events to</Text>
         <Text style={styles.text}>enjoy with their children</Text>
         <Button style={styles.spacer} mode='contained' onPress={() => {
-          navigation.navigate('SignupScreen')
+          navigation.navigate('Signup')
         }}>@CONTINUE WITH EMAIL</Button>
         <View style={styles.icon1}>
           <TouchableOpacity style={styles.icons} onPress={signInWithPopup}>
-            <FontAwesome  name="google" size={24} color="red" />
+            <FontAwesome name="google" size={24} color="#F12816" />
           </TouchableOpacity>
           <TouchableOpacity style={styles.icons} >
-            <FontAwesome name="facebook" size={24} color="red" />
+            <FontAwesome name="facebook" size={24} color="#F12816" />
           </TouchableOpacity>
           <TouchableOpacity style={styles.icons} >
-            <FontAwesome  name="twitter" size={24} color="red" />
+            <FontAwesome name="twitter" size={24} color="#F12816" />
           </TouchableOpacity>
 
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate(routeName)}>
-          <Spacer>
+          onPress={() => navigation.navigate(routeName)}> 
             <Text style={styles.text1}>Already have an account?</Text>
             <Text style={styles.link}>{text}</Text>
-          </Spacer>
         </TouchableOpacity>
       </View>
     </Background>
 
-
-
-  )
-}
+  )}
 
 export default HomeScreen
 
 const styles = StyleSheet.create({
-  logo: {
-    marginTop: '50%'
-  },
+ 
   container: {
-    height: 400
+    height: 400,
   },
   spacer: {
     marginTop: "5%",
-    // marginBottom: '5%',
     width: '80%',
-    backgroundColor: 'darkblue',
+    backgroundColor: '#14225C',
     color: 'white',
     justifyContent: 'center',
     alignSelf: 'center',
 
   },
+  imageContainer: {
+    width: 380,
+    height: 150,
+  },
   image: {
     width: '100%',
-    height: '65%',
+    height: '100%',
+    justifyContent: 'center',
+    alignSelf: 'center',
   },
   text: {
     textAlign: 'center',
-    borderColor: 'red'
+    marginTop: 5,
+    fontSize: 20,
+    // fontFamily: Poppins
 
   },
   text1: {

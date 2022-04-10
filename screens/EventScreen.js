@@ -2,7 +2,8 @@ import { StyleSheet, Text, View, Linking, TouchableOpacity, Image } from 'react-
 import React from 'react'
 
 
-const Event = ({ result }) => {
+const Events = ({ result }) => {
+    console.log(result);
 
     return (
         <View style={styles.container}>
@@ -42,4 +43,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Event
+export default Events

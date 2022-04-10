@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
 import { View, TouchableOpacity, Text } from "react-native";
+import Fil from '../components/Fil-logo';
+import Logo from '../components/Logo';
 
 export default function MyTabBar({ state, descriptors, navigation }) {
     return (
-        <View style={{ flexDirection: 'row', backgroundColor: "darkblue",  height: 40, width: '100%', justifyContent: "center", alignItems: "center" }}>
+        <View style={{ flexDirection: 'row', backgroundColor: "#14225C",  height: 40, width: '100%', justifyContent: "center", alignItems: "center", color:"white" }}>
             {state.routes.map((route, index) => {
                 const { options } = descriptors[route.key];
                 const label =
@@ -44,6 +46,7 @@ export default function MyTabBar({ state, descriptors, navigation }) {
                         style={{ flex: 1, alignItems: "center" }}
                         key={index}
                     >
+                     
                         <Text style={{ color: isFocused ? 'white' : 'lightblue' }}>
                             {label}
                         </Text>

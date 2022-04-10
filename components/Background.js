@@ -16,14 +16,15 @@ const styles = StyleSheet.create({
     background: {
         flex: 1,
         backgroundColor: theme.colors.tint,
+        paddingBottom: 80,
+       
         
     },
     container: {
         flex: 1,
         width: '100%',
-        maxWidth: 500,
-        maxHeight: 400,
-        margin: 50,
+        maxWidth: 600,
+        marginTop: 75,
         alignSelf: 'center',
         justifyContent: 'center',
     },

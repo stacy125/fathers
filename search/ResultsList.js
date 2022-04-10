@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native'
-import Event from '../screens/EventScreen'
+import Events from '../screens/EventScreen'
 
 
 const ResultsList = ({ results, navigation: { navigate } }) => {
@@ -20,7 +20,7 @@ const ResultsList = ({ results, navigation: { navigate } }) => {
                     return (
                         <TouchableOpacity
                             onPress={() => navigate('ResultsShow', { id: item.id })} >
-                            <Event result={item} />
+                            <Events result={item} />
                         </TouchableOpacity>
                     )
                 }}

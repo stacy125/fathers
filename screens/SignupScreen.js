@@ -17,7 +17,7 @@ const SignupScreen = ({ navigation }) => {
     // const [username, setUsername] = useState('')
 
     const text = "Already have an account? Sign in instead!"
-    const routeName = "SignInScreen"
+    const routeName = "Signin"
 
 
 
@@ -83,7 +83,7 @@ const SignupScreen = ({ navigation }) => {
                 />
                 <Button onPress={handleSignUp}>Submit</Button>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate(routeName)}>
+                    onPress={() => navigation.navigate(routeName, { screen: 'Signin' })}>
                     <Spacer>
                         <Text style={styles.link}>{text}</Text>
                     </Spacer>

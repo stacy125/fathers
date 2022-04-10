@@ -14,10 +14,10 @@ const SigninScreen = ({ navigation }) => {
     // const [isLoggedIn, setIsLoggedIn] = useState(false)
 
 
-
+console.log(navigation);
 
     const text = "Dont have an account? Sign up instead"
-    const routeName = "SignupScreen"
+    const routeName = "Signup"
 
 
     const handleSignIn = () => {
@@ -30,7 +30,7 @@ const SigninScreen = ({ navigation }) => {
             }).then(user => {
                 auth.onIdTokenChanged(user => {
                     if (user) {
-                        navigation.navigate('Events')
+                        navigation.navigate('Events', {screen: 'Events'})
                     }
                 })
             })
@@ -65,12 +65,12 @@ const SigninScreen = ({ navigation }) => {
                     secureTextEntry
                 />
                 <TouchableOpacity
-                    onPress={() => navigation.navigate(routeName)}>
+                    onPress={() => navigation.navigate(routeName, {screen: 'Signup'})}>
                     <Text style={styles.link}>{text}</Text>
                 </TouchableOpacity>
                 <Button onPress={handleSignIn}>submit</Button>
-                <Button onPress={() => navigation.replace("Home")}>Home</Button>
-                <Button onPress={() => navigation.navigate('AddEventScreen')}>AddEventScreen</Button>
+                <Button onPress={() => navigation.navigate("Home")}>Home</Button>
+                <Button onPress={() => navigation.navigate('AddEvent')}>AddEventScreen</Button>
             </View>
         </Background>
 
