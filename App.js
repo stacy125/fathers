@@ -13,6 +13,13 @@ import { Provider as AuthProvider } from './context/EventContext';
 import Signup from './screens/SignupScreen';
 import Signin from './screens/SigninScreen';
 import Home from './screens/HomeScreen';
+import AddEvent from './screens/AddEventScreen';
+import Events from './screens/EventScreen';
+import Approved from './screens/SavedEventsScreen';
+import Profile from './screens/ProfileScreen';
+import ResultsShow from './search/ResultsShowScreen';
+import Contact from './screens/ContactScreen';
+import AboutUs from './screens/AboutUsScreen';
 
 
 
@@ -44,7 +51,15 @@ export default function App() {
               // Screens for logged in users
               <RootStack.Group>
                 <RootStack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
-                <RootStack.Screen name="Main" component={MainStack} />
+                <RootStack.Screen name="Home" component={Home} />
+                <RootStack.Screen name="Profile" component={Profile} />
+                <RootStack.Screen name="ResultsShow" component={ResultsShow} />
+                <RootStack.Screen name="Contact" component={Contact} />
+                <RootStack.Screen name="AboutUs" component={AboutUs} />
+                <RootStack.Screen name="AddEvent" component={AddEvent} />
+                <RootStack.Screen name="Events" component={Events} />
+                <RootStack.Screen name="Approved" component={Approved} />
+                <RootStack.Screen name="MainStack" component={MainStack} />
               </RootStack.Group>
             ) : (
               // Auth screens

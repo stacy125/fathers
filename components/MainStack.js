@@ -28,8 +28,6 @@ export default function Tabs({screenOptionStyle}) {
                 fontWeight: 'bold',
             }, }} >
             <MainStack.Screen name="Home" component={Home}  />
-            <MainStack.Screen name="Sign In" component={Signin} />
-            <MainStack.Screen name="Signup" component={Signup} />
             <MainStack.Screen name="Profile" component={Profile} />
             <MainStack.Screen name="ResultsShow" component={ResultsShow} />
             <MainStack.Screen name="Contact" component={Contact} />

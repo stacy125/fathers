@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { Button, TextInput } from 'react-native-paper'
+import { Button } from 'react-native-paper'
 import Background from '../components/Background';
 import Logo from '../components/Logo'
 import Header from '../components/Text';
+import Fil from '../components/Fil-logo'
 import { auth } from '../firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
 
@@ -14,9 +15,9 @@ const SigninScreen = ({ navigation }) => {
     // const [isLoggedIn, setIsLoggedIn] = useState(false)
 
 
-console.log(navigation);
+console.log(navigation, 'hello');
 
-    const text = "Dont have an account? Sign up instead"
+    const text = "Sign up instead"
     const routeName = "Signup"
 
 
@@ -26,11 +27,11 @@ console.log(navigation);
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                console.log(user);
+                // console.log(user);
             }).then(user => {
                 auth.onIdTokenChanged(user => {
                     if (user) {
-                        navigation.navigate('Events', {screen: 'Events'})
+                        navigation.navigate('MainStack', {screen: 'Events', params: user})
                     }
                 })
             })
@@ -44,11 +45,14 @@ console.log(navigation);
 
     return (
         <Background>
-            <Logo />
             <View style={styles.container}>
+            <Fil />
+            <Logo />
 
                 <Header style={styles.header}>Log In</Header>
-                <TextInput
+                <Text>Log in and help build the #FatherhoodIsLit database!</Text>
+                <Text style={styles.text}>Email</Text>
+                <Button
                     style={styles.spacer}
                     name="email"
                     value={email}
@@ -56,7 +60,8 @@ console.log(navigation);
                     autoCapitalize={false}
                     onChangeText={text => setEmail(text)}
                 />
-                <TextInput
+                <Text style={styles.text}>Your Password</Text>
+                <Button
                     style={styles.spacer}
                     label="Password"
                     placeholder='Password'
@@ -64,13 +69,14 @@ console.log(navigation);
                     onChangeText={text => setPassword(text)}
                     secureTextEntry
                 />
-                <TouchableOpacity
+                <Button style={styles.button} onPress={handleSignIn}>
+                    <Text style={styles.buttonText}>LOG IN</Text></Button>
+                <TouchableOpacity style={styles.textC}
                     onPress={() => navigation.navigate(routeName, {screen: 'Signup'})}>
+                    <Text style={styles.linkText}>Dont have an account?</Text>
                     <Text style={styles.link}>{text}</Text>
                 </TouchableOpacity>
-                <Button onPress={handleSignIn}>submit</Button>
-                <Button onPress={() => navigation.navigate("Home")}>Home</Button>
-                <Button onPress={() => navigation.navigate('AddEvent')}>AddEventScreen</Button>
+               
             </View>
         </Background>
 
@@ -82,12 +88,60 @@ SigninScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
+    container: {
+        margin: 50
+    },
     spacer: {
-        marginTop: 20,
-        marginBottom: 30,
+        width: 300,
+        height: 40,
+        justifyContent: 'center',
+        alignSelf: 'center',
+        borderColor: '#F12816',
+        borderWidth: 1,
+        borderRadius: 16,
+        marginTop: 2,
+        marginBottom: 25,
     },
     link: {
-        color: 'blue'
+        color: '#F12816'
+    },
+    header: {
+        color: '#F12816',
+        fontSize: 20,
+        fontWeight: '600',
+        marginBottom: 10,
+        // left: 40
+    },
+    text: {
+        fontWeight: '600',
+        marginTop: 30
+    },
+    button: {
+        backgroundColor: '#14225C',
+        width: 300,
+        height: 50,
+        borderRadius: 16,
+        borderWidth: 1,
+        borderColor: 'lightgray',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4.84,
+        elevation: 5,
+        justifyContent: 'center',
+        marginLeft: -10
+        
+    },
+    buttonText: {
+        color: 'white',      
+
+    },
+    textC: {
+        flexDirection: 'row',
+        marginTop: 20
     }
 });
 
