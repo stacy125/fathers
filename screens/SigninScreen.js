@@ -1,38 +1,41 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { Button } from 'react-native-paper'
+import { Button, TextInput } from 'react-native-paper'
 import Background from '../components/Background';
 import Logo from '../components/Logo'
 import Header from '../components/Text';
 import Fil from '../components/Fil-logo'
 import { auth } from '../firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigation } from '@react-navigation/native';
 
 
-const SigninScreen = ({ navigation }) => {
+
+const SigninScreen = () => {
+    const navigation = useNavigation()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     // const [isLoggedIn, setIsLoggedIn] = useState(false)
 
 
-console.log(navigation, 'hello');
-
+    
     const text = "Sign up instead"
     const routeName = "Signup"
-
-
+    
+    console.log(navigation, 'hello');
+    
     const handleSignIn = () => {
         auth
         signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                // console.log(user);
-            }).then(user => {
-                auth.onIdTokenChanged(user => {
-                    if (user) {
-                        navigation.navigate('MainStack', {screen: 'Events', params: user})
-                    }
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            // console.log(user);
+        }).then(user => {
+            auth.onIdTokenChanged(user => {
+                if (user) {
+                    navigation.navigate('Events', {screen: 'Events', params: user})
+                }
                 })
             })
             .catch((error) => {
@@ -52,7 +55,7 @@ console.log(navigation, 'hello');
                 <Header style={styles.header}>Log In</Header>
                 <Text>Log in and help build the #FatherhoodIsLit database!</Text>
                 <Text style={styles.text}>Email</Text>
-                <Button
+                <TextInput
                     style={styles.spacer}
                     name="email"
                     value={email}
@@ -61,7 +64,7 @@ console.log(navigation, 'hello');
                     onChangeText={text => setEmail(text)}
                 />
                 <Text style={styles.text}>Your Password</Text>
-                <Button
+                <TextInput
                     style={styles.spacer}
                     label="Password"
                     placeholder='Password'
@@ -76,7 +79,6 @@ console.log(navigation, 'hello');
                     <Text style={styles.linkText}>Dont have an account?</Text>
                     <Text style={styles.link}>{text}</Text>
                 </TouchableOpacity>
-               
             </View>
         </Background>
 
@@ -98,7 +100,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderColor: '#F12816',
         borderWidth: 1,
-        borderRadius: 16,
         marginTop: 2,
         marginBottom: 25,
     },

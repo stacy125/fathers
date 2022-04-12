@@ -51,14 +51,6 @@ export default function App() {
               // Screens for logged in users
               <RootStack.Group>
                 <RootStack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
-                <RootStack.Screen name="Home" component={Home} />
-                <RootStack.Screen name="Profile" component={Profile} />
-                <RootStack.Screen name="ResultsShow" component={ResultsShow} />
-                <RootStack.Screen name="Contact" component={Contact} />
-                <RootStack.Screen name="AboutUs" component={AboutUs} />
-                <RootStack.Screen name="AddEvent" component={AddEvent} />
-                <RootStack.Screen name="Events" component={Events} />
-                <RootStack.Screen name="Approved" component={Approved} />
                 <RootStack.Screen name="MainStack" component={MainStack} />
               </RootStack.Group>
             ) : (
@@ -67,6 +59,7 @@ export default function App() {
                 <RootStack.Screen name="Home" component={Home} />
                 <RootStack.Screen name="Signin" component={Signin} />
                 <RootStack.Screen name="Signup" component={Signup} />
+                <RootStack.Screen name="Events" component={Events} />
               </RootStack.Group>
             )}
           </RootStack.Navigator>
