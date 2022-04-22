@@ -6,10 +6,10 @@ import { enableScreens } from "react-native-screens";
 import { Provider } from 'react-native-paper';
 import Theme from './components/Theme';
 import DrawerMenu from './menu/DrawerMenu';
-import MyTabBar from './components/MyTabBar';
-import MainStack from './components/MainStack'
+import MainStacks from './components/MainStacks'
 import Tabs from './menu/Tabs'
-import { Provider as AuthProvider } from './context/EventContext';
+import { Provider as ActionProvider } from './context/EventContext';
+import {AuthProvider} from './context/AuthContext';
 import Signup from './screens/SignupScreen';
 import Signin from './screens/SigninScreen';
 import Home from './screens/HomeScreen';
@@ -17,9 +17,9 @@ import AddEvent from './screens/AddEventScreen';
 import Events from './screens/EventScreen';
 import Approved from './screens/SavedEventsScreen';
 import Profile from './screens/ProfileScreen';
-import ResultsShow from './search/ResultsShowScreen';
 import Contact from './screens/ContactScreen';
 import AboutUs from './screens/AboutUsScreen';
+import '@react-native-async-storage/async-storage'
 
 
 
@@ -40,32 +40,28 @@ export default function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  console.log()
 
   return (
-    <AuthProvider>
-      <Provider theme={Theme}>
+    <Provider theme={Theme}>
+      <AuthProvider>
         <NavigationContainer   >
-          <RootStack.Navigator initialRouteName='Home' >
-            {isLoggedIn ? (
-              // Screens for logged in users
-              <RootStack.Group>
-                <RootStack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
-                <RootStack.Screen name="MainStack" component={MainStack} />
-              </RootStack.Group>
-            ) : (
-              // Auth screens
-              <RootStack.Group screenOptions={{ headerShown: false }}>
-                <RootStack.Screen name="Home" component={Home} />
-                <RootStack.Screen name="Signin" component={Signin} />
-                <RootStack.Screen name="Signup" component={Signup} />
-                <RootStack.Screen name="Events" component={Events} />
-              </RootStack.Group>
-            )}
-          </RootStack.Navigator>
+          <ActionProvider>
+            <RootStack.Navigator initialRouteName='Home' >
+              <RootStack.Screen name="Drawer" component={DrawerMenu} options={{ headerShown: false }} />
+              <RootStack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
+              <RootStack.Screen name="MainStacks" component={MainStacks} />
+              {!isLoggedIn && (
+                // Auth screens
+                <RootStack.Group>
+                  <RootStack.Screen name="Signin" component={Signin} />
+                  <RootStack.Screen name="Signup" component={Signup} />
+                </RootStack.Group>
+              )}
+            </RootStack.Navigator>
+          </ActionProvider>
         </NavigationContainer>
-      </Provider>
-    </AuthProvider>
+      </AuthProvider>
+    </Provider>
   );
 }
 

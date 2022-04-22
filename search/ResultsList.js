@@ -1,28 +1,37 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native'
 import Events from '../screens/EventScreen'
+import SearchBar from './SearchBar';
 
 
-const ResultsList = ({ results, navigation: { navigate } }) => {
- 
-    if(!results.length){
-        return null;
+
+const ResultsList = ({ results }) => {
+    const navigation = useNavigation()
+
+    const showEvent = (item) => {
+        
+        navigation.push('MainStacks', { 
+            screen: "Chosen Event", 
+            params: {result: item}
+        })
     }
-    console.log(results);
+
+
     return (
         <View style={styles.container}>
+            <SearchBar />
             <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator
                 data={results}
                 keyExtractor={(result) => result.id}
                 renderItem={({ item }) => {
                     return (
                         <TouchableOpacity
-                            onPress={() => navigate('ResultsShow', { id: item.id })} >
+                            onPress={() => showEvent(item)} >
                             <Events result={item} />
                         </TouchableOpacity>
-                    )
+                    ) 
                 }}
             />
 
@@ -31,17 +40,7 @@ const ResultsList = ({ results, navigation: { navigate } }) => {
     
 }
 
-const styles = StyleSheet.create({
-    titleStyle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    container: {
-        width: 250,
-        marginLeft: 15
-    }
-})
+const styles = StyleSheet.create({})
 
 export default ResultsList
 

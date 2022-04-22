@@ -7,7 +7,8 @@ import Header from '../components/Text';
 import Fil from '../components/Fil-logo'
 import { auth } from '../firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation} from '@react-navigation/native';
+
 
 
 
@@ -22,7 +23,6 @@ const SigninScreen = () => {
     const text = "Sign up instead"
     const routeName = "Signup"
     
-    console.log(navigation, 'hello');
     
     const handleSignIn = () => {
         auth
@@ -34,7 +34,11 @@ const SigninScreen = () => {
         }).then(user => {
             auth.onIdTokenChanged(user => {
                 if (user) {
-                    navigation.navigate('Events', {screen: 'Events', params: user})
+                    setTimeout(() => {
+                        navigation.navigate('Drawer', {
+                                screen: "Events",
+                            })
+                    }, 2000);
                 }
                 })
             })
@@ -60,7 +64,6 @@ const SigninScreen = () => {
                     name="email"
                     value={email}
                     label="Email"
-                    autoCapitalize={false}
                     onChangeText={text => setEmail(text)}
                 />
                 <Text style={styles.text}>Your Password</Text>

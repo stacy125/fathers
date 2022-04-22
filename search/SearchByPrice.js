@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { Text, StyleSheet, ScrollView } from 'react-native';
 import ResultsList from '../search/ResultsList';
 import SearchBar from '../search/SearchBar';
-import useResults from '../search/useResults';
+import useResults from './UseResults';
 
 
 
 const SearchByPrice = () => {
-
+    
     const [searchInput, setSearchInput] = useState('')
     const [searchLocation, setSearchLocation] = useState('')
     const [results, searchApi, error] = useResults([])
+   
 
     const filterResultsByLowPrice = (cost) => {
         // price === '$' || '$$' || '$$$'
@@ -38,7 +39,7 @@ const SearchByPrice = () => {
             })
         }
     }
-
+console.log('SearchByPrice', SearchLocation);
     return (
         <>
             <SearchBar

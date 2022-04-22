@@ -1,46 +1,67 @@
-import { StyleSheet, Text, View, Linking, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, Text, View, Linking, TouchableOpacity, Image, Dimensions } from 'react-native'
 import React from 'react'
+import { Title } from 'react-native-paper';
 
+
+const { width } = Dimensions.get("screen");
 
 const Events = ({ result }) => {
-    console.log(result);
+    // console.log(result, 'events');
+
 
     return (
         <View style={styles.container}>
-            <View style={styles.dataContainer}>
-                <Image style={styles.imageStyle} source={{ uri: result.image_url }} />
-                <Text>Event Name: {result.name} </Text>
-                <Text>Description:  {result.description}</Text>
-                <Text>Location:  {result.location.display_address}</Text>
-                <TouchableOpacity onPress={() => Linking.openURL(result.event_site_url)}>
-                    <Text>Event Website</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => Linking.openURL('https://maps.google.com')}>
-                    <Text>Google Maps</Text>
-                </TouchableOpacity>
-            </View>
+            <Title style={{ marginLeft: 5 }}>Event Name: {result?.name} </Title>
+            <Text style={{ marginLeft: 5 }}>Location:  {result?.location?.display_address}</Text>
+            <View style={styles.imageContainer}>
+                <Image style={styles.imageStyle} source={{ uri: result?.image_url }} />
+            </View>         
+            <Text style={{ marginLeft: 5 }}>Description:  {result?.description}</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal:5 }}>
+                    <TouchableOpacity onPress={() => Linking.openURL(result.event_site_url)}>
+                        <Text style={{ color: 'blue' }}>Event Website</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => Linking.openURL('https://maps.google.com')}>
+                        <Text style={{ color: 'blue' }}>Google Maps</Text>
+                    </TouchableOpacity>
+                </View>
+         
         </View>
+
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignSelf: 'center',
-        height: '100%',
-        // marginTop: 100
+        borderColor: 'lightgray',
+        borderRadius: 20,
+        borderWidth: 1,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4.84,
+        elevation: 5,
+        borderWidth: 2,
+        margin: 10
+    },
+    dataContainer: {
+        // width: 335,
+        marginLeft: 15,
+
+    },
+    imageContainer: {
+        marginVertical: 10,
+        width: 335,
+        height: 250,
     },
     imageStyle: {
-        width: 250,
-        height: 150,
-        // borderRadius: 4,
-        // marginBottom: 5
+        width: '100%',
+        height: '100%'
     },
-    nameStyle: {
-        fontWeight: 'bold',
-        marginBottom: 20
-    }
 })
 
 export default Events

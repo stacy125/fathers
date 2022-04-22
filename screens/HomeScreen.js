@@ -5,38 +5,27 @@ import { Button } from 'react-native-paper';
 import Background from '../components/Background';
 import Logo from '../components/Logo';
 import image from '../assets/landing-page.png'
-import { signInWithPopup } from '../components/GoogleAuth'
-import Spacer from '../components/Spacer';
+import useAuth from '../context/AuthContext'
 import { FontAwesome } from '@expo/vector-icons';
 import Fil from '../components/Fil-logo'
-// import Poppins from '../fonts/Poppins';
-
-
 
 const HomeScreen = ({ navigation }) => {
+  
+const { signInWithGoogle } = useAuth()
 
-  // const signInWithGoogle = async () => {
-  //   const provider = new auth.GoogleAuthProvider();
-  //   auth.useDeviceLanguage();
+  console.log(signInWithGoogle, 'signInWithGoogle');
+  console.log(useAuth(), 'useAuth');
+
+  // const signOut = async () => {
   //   try {
-  //     await auth.signInWithPopup(provider);
+  //     await auth().signOut();
   //   } catch (error) {
-  //     console.error(error);
+  //     console.log(error.message);
   //   }
   // };
 
-  const signOut = async () => {
-    try {
-      await auth().signOut();
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   const text = "Sign in"
   const routeName = "Signin"
-
-
 
   return (
     <Background>
@@ -46,7 +35,6 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.imageContainer}>
           <ImageBackground source={image} resizeMode="cover" style={styles.image} />
         </View>
-
         <Text style={styles.text}>Where fathers can find,</Text>
         <Text style={styles.text}>create and share events to</Text>
         <Text style={styles.text}>enjoy with their children</Text>
@@ -54,7 +42,7 @@ const HomeScreen = ({ navigation }) => {
           navigation.navigate('Signup')
         }}>@CONTINUE WITH EMAIL</Button>
         <View style={styles.icon1}>
-          <TouchableOpacity style={styles.icons} onPress={signInWithPopup}>
+          <TouchableOpacity style={styles.icons} onPress={() => signInWithGoogle}>
             <FontAwesome name="google" size={24} color="#F12816" />
           </TouchableOpacity>
           <TouchableOpacity style={styles.icons} >

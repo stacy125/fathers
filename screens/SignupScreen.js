@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button } from 'react-native-paper'
+import { Button, TextInput } from 'react-native-paper'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import Spacer from '../components/Spacer'
 import Background from '../components/Background';
@@ -60,7 +60,7 @@ const SignupScreen = ({ navigation }) => {
                 </View>
                 <Text>#FatherhoodIsLit</Text>
                 <Text style={styles.text}>Username</Text>
-                <Button
+                <TextInput
                     style={styles.spacer}
                     label="Username"
                     name="username"
@@ -68,16 +68,15 @@ const SignupScreen = ({ navigation }) => {
                     onChangeText={text => setUsername(text)}
                 />
                 <Text style={styles.text}>Email</Text>
-                <Button
+                <TextInput
                     style={styles.spacer}
                     name="email"
-                    autoCapitalize={false}
                     value={email}
                     label="Email"
                     onChangeText={text => setEmail(text)}
                 />
                 <Text style={styles.text}>Your Password</Text>
-                <Button
+                <TextInput
                     style={styles.spacer}
                     name="password"
                     value={password}

@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import MenuLogo from '../components/MenuLogo'
+import React from 'react';
 import CustomNavigationBar from '../components/CustomNavigationBar';
 import Home from '../screens/HomeScreen';
 import AddEvent from '../screens/AddEventScreen';
 import Contact from '../screens/ContactScreen';
 import Events from '../screens/EventScreen';
-import ResultsShow from '../search/ResultsShowScreen'
 import Profile from '../screens/ProfileScreen';
 import AboutUs from '../screens/AboutUsScreen';
 import Approved from '../screens/SavedEventsScreen';
@@ -14,14 +11,19 @@ import {
     createDrawerNavigator, DrawerContentScrollView,
     DrawerItemList, DrawerItem,
 } from '@react-navigation/drawer';
-import Tabs from './Tabs';
 import { FontAwesome } from '@expo/vector-icons';
+import logout from '../screens/SignOutScreen'
+import { useAuthState } from 'react-firebase-hooks/auth';
+import {auth} from '../firebase'
+import ResultsList from '../search/ResultsList';
+import UseResults from '../search/UseResults';
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
 
+export default function DrawerMenu() {
 
-
-export default function DrawerMenu({ navigation }) {
-    const [isVisible, setIsVisibile] = useState(false)
+    const [user, loading, error] = useAuthState(auth);
 
     function CustomDrawerContent(props) {
         return (
@@ -44,71 +46,118 @@ export default function DrawerMenu({ navigation }) {
         headerTitleStyle: {
             fontWeight: 'bold',
         },
-    
     };
-    const barOptionStyle = {
-        headerStyle: {
-            backgroundColor: '#14225C',
-        }
-    
-    };
+
+
 
 
     const Drawer = createDrawerNavigator();
 
+    console.log(user);
+
     return (
-        <Drawer.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />} screenOptions={{screenOptionStyle}}>
-            <Drawer.Screen name="Home" component={Home} options={screenOptionStyle}  />
-            <Drawer.Screen name="Profile" component={Profile} icons={<FontAwesome name="user" size={24} color="black" />} options={screenOptionStyle} />
-            <Drawer.Screen name="Add An Event" component={AddEvent} options={screenOptionStyle} />
-            <Drawer.Screen name="Find Event" component={Events} options={screenOptionStyle} />
-            {/* <Drawer.Screen name="ResultsShow" component={ResultsShow} options={screenOptionStyle} /> */}
-            <Drawer.Screen name="About Us" component={AboutUs} options={screenOptionStyle} />
-            <Drawer.Screen name="Dad Approved" component={Approved} options={screenOptionStyle} />
-            <Drawer.Screen name="Contact Us" component={Contact} options={screenOptionStyle} />
-            {/* <Drawer.Screen name="Tab" component={Tabs} /> */}
+        <Drawer.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />} screenOptions={{ screenOptionStyle }}>
+            {!user ? (
+                <Drawer.Group>
+                    <Drawer.Screen name="Home" component={Home} options={{
+                        headerStyle: {
+                            backgroundColor: '#14225C',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                        },
+                        drawerIcon: ({ focused, size }) => (
+                            <FontAwesome name="home" size={24} color={focused ? '#F12816' : '#3DBFF2'} />
+                        )}}/>
+                </Drawer.Group>
+
+            ) : (
+                <Drawer.Group>
+                        <Drawer.Screen name="Profile" component={Profile} icons={<FontAwesome name="user" size={24} color="black" />} options={{
+                            headerStyle: {
+                                backgroundColor: '#14225C',
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                            drawerIcon: ({ focused, size }) => (
+                                <FontAwesome name="user" size={24} color={focused ? '#F12816' : '#3DBFF2'
+} />
+                            )}} />
+                        <Drawer.Screen name="Add An Event" component={AddEvent} options={{
+                            headerStyle: {
+                                backgroundColor: '#14225C',
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                            drawerIcon: ({ focused, size }) => (
+                                <Ionicons name="md-add-circle-sharp" size={24} color={focused ? '#F12816' : "#3DBFF2"} />
+                            )}} />
+                        <Drawer.Screen name="Find Event" component={UseResults} options={{
+                            headerStyle: {
+                                backgroundColor: '#14225C',
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                            drawerIcon: ({ focused, size }) => (
+                                <MaterialIcons name="find-in-page" size={24} color={focused ? '#F12816' : "#3DBFF2"} />
+                            )}} />
+                        <Drawer.Screen name="About Us" component={AboutUs} options={{
+                            headerStyle: {
+                                backgroundColor: '#14225C',
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                            drawerIcon: ({ focused, size }) => (
+                                <Ionicons name="hand-right-sharp" size={24} color={focused ? '#F12816' : '#3DBFF2'} />
+                            )}} />
+                        <Drawer.Screen name="Dad Approved" component={Approved} options={{
+                            headerStyle: {
+                                backgroundColor: '#14225C',
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                            drawerIcon: ({ focused, size }) => (
+                                <FontAwesome name="check-circle" size={24} color={focused ? '#F12816' :'#3DBFF2'} />
+                            )}} />
+                        <Drawer.Screen name="Sign out" component={logout} options={{
+                            headerStyle: {
+                                backgroundColor: '#14225C',
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                            drawerIcon: ({ focused, size }) => (
+                                <FontAwesome name="sign-out" size={24} color={focused ? '#F12816' :'#3DBFF2'} />
+                            )}} />
+                        <Drawer.Screen name="Contact Us" component={Contact} options={{
+                            headerStyle: {
+                                backgroundColor: '#14225C',
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                            drawerIcon: ({ focused, size }) => (
+                                <FontAwesome name="envelope" size={24} color={focused ? '#F12816' : '#3DBFF2'} />
+                            )}} />
+                </Drawer.Group>
+
+            )
+            }
         </Drawer.Navigator>
     )
 
-    // return (
-    //     <View style={{
-    //         width: '20%', height: 40, marginTop: '10%'
-    //     }}>
-    //         <MenuLogo/>
-    //         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-    //             <Text>Home</Text>
-    //         </TouchableOpacity>
-    //         <TouchableOpacity onPress={() => navigation.navigate('Events')}>
-    //             <Text>Events</Text>
-    //         </TouchableOpacity>
-    //         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-    //             <Text>Profile</Text>
-    //         </TouchableOpacity>
-    //         <TouchableOpacity onPress={() => navigation.navigate('AddEvent')}>
-    //             <Text>Add An Event</Text>
-    //         </TouchableOpacity>
-    //         <TouchableOpacity onPress={() => navigation.navigate('Approved')}>
-    //             <Text>Approved Events</Text> 
-    //         </TouchableOpacity>
-    //         <TouchableOpacity onPress={() => navigation.navigate('Contact')}>
-    //             <Text>Contact Us</Text>
-    //         </TouchableOpacity>
-
-    //     </View>
-    // );
 }
 
-const styles = StyleSheet.create({
-    // container: {
-    //     margin: 100,
-    //     maxHeight: '100%'
-    // },
-    // paragraph: {
-    //     backgroundColor: 'lavender',
-    //     fontSize: 18,
-    //     fontWeight: 'bold',
-    // },
-    // seen: {
-    //     height: '100%'
-    // }
-});
