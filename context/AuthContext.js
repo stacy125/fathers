@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import * as Google from 'expo-google-app-auth';
 import { GoogleAuthProvider, onAuthStateChanged, signInWithCredential, signOut } from 'firebase/auth';
-import { auth } from '../firebase'
+import { auth } from '../secret/firebase'
 
 
 

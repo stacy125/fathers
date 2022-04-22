@@ -6,7 +6,7 @@ import Background from '../components/Background';
 import Logo from '../components/Logo'
 import Header from '../components/Text';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../firebase';
+import { auth } from '../secret/firebase';
 import Fil from '../components/Fil-logo'
 
 

@@ -14,7 +14,7 @@ import {
 import { FontAwesome } from '@expo/vector-icons';
 import logout from '../screens/SignOutScreen'
 import { useAuthState } from 'react-firebase-hooks/auth';
-import {auth} from '../firebase'
+import {auth} from '../secret/firebase'
 import ResultsList from '../search/ResultsList';
 import UseResults from '../search/UseResults';
 import { Ionicons } from '@expo/vector-icons';

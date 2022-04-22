@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
-import { auth } from '../firebase'
+import { auth } from '../secret/firebase'
 import { Button } from 'react-native-paper';
 import Background from '../components/Background';
 import Logo from '../components/Logo';

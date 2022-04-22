@@ -5,7 +5,7 @@ import Background from '../components/Background';
 import Logo from '../components/Logo'
 import Header from '../components/Text';
 import Fil from '../components/Fil-logo'
-import { auth } from '../firebase';
+import { auth } from '../secret/firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigation} from '@react-navigation/native';
 
