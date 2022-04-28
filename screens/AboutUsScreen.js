@@ -67,10 +67,12 @@ const styles = StyleSheet.create({
         shadowRadius: 4.84,
         elevation: 5,
         top: 10,
+        justifyContent: 'center',
+        marginBottom: 150
     },
     buttonText: {
         color: 'white',
-        justifyContent: 'center',
         textAlign: 'center',
+        fontSize: 18
     }
 })

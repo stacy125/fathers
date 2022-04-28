@@ -2,35 +2,57 @@ import { StyleSheet, Text, View, Image, B } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import React, { useState } from 'react';
 import profile from '../assets/profile-pic.png';
+import useAuth from '../context/AuthContext'
 
 const Profile = ({ handleSignup }) => {
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
+  const { user } = useAuth()
 
-  const editValue = (e) => {
-    username = e.target.editValue
+  const usernameChange = (e) => {
+    username = user.displayName
     email = e.target.value
   }
+  console.log(user);
   return (
     <View style={styles.container}>
+      <View style={{ flexDirection: "row", alignSelf: 'center' }}>
+        <Button style={styles.topButton} onPress={() => handleSignup}>
+          <Text style={styles.editText}>YOUR ACCOUNT</Text>
+        </Button>
+        <Button style={styles.topButton} onPress={() => handleSignup}>
+          <Text style={styles.editText}>DASHBOARD</Text>
+        </Button>
+      </View>
       <Image source={profile} style={styles.image} />
       <View style={styles.mid} >
-        <Text style={styles.text} >Username</Text>
-        <TextInput style={styles.input} name={username} value={username} onChangeText={(text) => setUsername(text)} />
-        <Text style={styles.text}>Email</Text>
-        <TextInput style={styles.input} name={email} value={email} onChangeText={(text) => setEmail(text)} />
         <Button style={styles.editButton} onPress={() => handleSignup}>
           <Text style={styles.editText}>EDIT</Text>
         </Button>
-        <View style={styles.pushContainer} >
+        <Text style={styles.text} >Username</Text>
+        <TextInput style={styles.input} name={username} value={username} onChangeText={(text) => setUsername(text)} placeholder={user.displayName} />
+        <Button style={{fontSize: 14}} onPress={() => handleSignup}>
+          <Text style={styles.editText}>change username</Text>
+        </Button>
+        <Text style={styles.text}>Email</Text>
+        <TextInput style={styles.input} name={email} value={email} onChangeText={(text) => setEmail(text)} placeholder={user.email} />
+        <Button style={{ fontSize: 14 }} onPress={() => handleSignup}>
+          <Text style={styles.editText}>change email</Text>
+        </Button>
+        {/* <View style={styles.pushContainer} >
           <Text style={styles.push} >Push Notifications</Text>
           <Button style={styles.outerButton} />
           <Button style={styles.pushButton} />
-        </View>
+        </View> */}
       </View>
-      <Button style={styles.reset} >
-        <Text style={styles.resetText}>RESET PASSWORD</Text>
-      </Button>
+      <View style={{ flexDirection: "row", bottom: 20 }}>
+        <Button style={styles.reset} >
+          <Text style={styles.resetText}>RESET PASSWORD</Text>
+        </Button>
+        <Button style={styles.reset} >
+          <Text style={styles.resetText}>DELETE ACCOUNT</Text>
+        </Button>
+      </View>
     </View>
   )
 }
@@ -39,32 +61,36 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    marginBottom: 250,
+    // marginBottom: 250,
     width: '100%',
-    marginTop: 5,
-    marginBottom: 100,
+    // marginBottom: 100,
   },
   mid: {
-    marginTop: 50
+    marginTop: 30
   },
   text: {
-    left: 79,
-    top: 15
+    top: 15,
+    textAlign: 'center',
+    fontSize: 20
   },
   image: {
-    height: 250,
-    width: 370,
+    height: 200,
+    width: 200,
     alignSelf: 'center',
-    top: 60
+    top: 30,
+    borderRadius: 100,
   },
   input: {
-    left: 79,
     width: 200,
     height: 30,
     top: 20,
-    marginBottom: 20
+    marginBottom: 20,
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center'
   },
-  editButton: {
+  topButton: {
     borderWidth: 1,
     borderRadius: 4,
     borderColor: 'lightgray',
@@ -76,13 +102,21 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4.84,
     elevation: 5,
+    width: 164,
+    height: 36,
+    justifyContent: 'center',
+    alignSelf: 'center'
+
+  },
+  editButton: {
+    borderColor: 'transparent',
     width: 100,
     height: 36,
-    left: 79,
-    top: 20,
+    alignSelf: 'center'
+
   },
   editText: {
-    color: '#F12816'
+    color: '#F12816',
   },
   outerButton: {
     backgroundColor: '#F12816',
@@ -111,10 +145,10 @@ const styles = StyleSheet.create({
     left: 70
   },
   reset: {
-    width: 300,
-    height: 50,
-    left: 40,
-    backgroundColor: '#F12816',
+    width: 180,
+    // height: 50,
+    left: 7,
+    backgroundColor: 'white',
     borderWidth: 1,
     borderRadius: 16,
     borderColor: 'lightgray',
@@ -129,10 +163,10 @@ const styles = StyleSheet.create({
     top: 30,
   },
   resetText: {
-    color: 'white',
+    color: '#F12816',
     textAlign: 'center',
     justifyContent: 'center',
-   
+
   }
 
 })

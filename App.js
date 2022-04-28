@@ -20,6 +20,7 @@ import Profile from './screens/ProfileScreen';
 import Contact from './screens/ContactScreen';
 import AboutUs from './screens/AboutUsScreen';
 import '@react-native-async-storage/async-storage'
+import Carousel from './components/Carousel';
 
 
 
@@ -50,6 +51,7 @@ export default function App() {
               <RootStack.Screen name="Drawer" component={DrawerMenu} options={{ headerShown: false }} />
               <RootStack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
               <RootStack.Screen name="MainStacks" component={MainStacks} />
+              <RootStack.Screen name="CarouselStacks" component={Carousel} />
               {!isLoggedIn && (
                 // Auth screens
                 <RootStack.Group>

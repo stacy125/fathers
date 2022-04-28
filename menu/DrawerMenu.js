@@ -12,13 +12,15 @@ import {
     DrawerItemList, DrawerItem,
 } from '@react-navigation/drawer';
 import { FontAwesome } from '@expo/vector-icons';
-import logout from '../screens/SignOutScreen'
+import logout from '../screens/SignOutScreen';
+import HowItWorks from '../screens/HowItWorks';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {auth} from '../secret/firebase'
 import ResultsList from '../search/ResultsList';
 import UseResults from '../search/UseResults';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import Carousel from '../components/Carousel';
 
 
 export default function DrawerMenu() {
@@ -75,6 +77,18 @@ export default function DrawerMenu() {
             ) : (
                 <Drawer.Group>
                         <Drawer.Screen name="Profile" component={Profile} icons={<FontAwesome name="user" size={24} color="black" />} options={{
+                            headerStyle: {
+                                backgroundColor: '#14225C',
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                            drawerIcon: ({ focused, size }) => (
+                                <FontAwesome name="user" size={24} color={focused ? '#F12816' : '#3DBFF2'
+} />
+                            )}} />
+                        <Drawer.Screen name="How it works" component={Carousel} icons={<FontAwesome name="circle-question" size={24} color="black" />} options={{
                             headerStyle: {
                                 backgroundColor: '#14225C',
                             },

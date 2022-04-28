@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
 import React from 'react'
-import { auth } from '../secret/firebase'
+// import { auth } from '../secret/firebase'
 import { Button } from 'react-native-paper';
 import Background from '../components/Background';
 import Logo from '../components/Logo';
@@ -9,9 +10,10 @@ import useAuth from '../context/AuthContext'
 import { FontAwesome } from '@expo/vector-icons';
 import Fil from '../components/Fil-logo'
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
   
-const { signInWithGoogle } = useAuth()
+const { signInWithGoogle, facebookSignIn, signInWithTwitter } = useAuth()
+  const navigation = useNavigation()
 
   console.log(signInWithGoogle, 'signInWithGoogle');
   console.log(useAuth(), 'useAuth');
@@ -42,13 +44,13 @@ const { signInWithGoogle } = useAuth()
           navigation.navigate('Signup')
         }}>@CONTINUE WITH EMAIL</Button>
         <View style={styles.icon1}>
-          <TouchableOpacity style={styles.icons} onPress={() => signInWithGoogle}>
+          <TouchableOpacity style={styles.icons} onPress={signInWithGoogle}>
             <FontAwesome name="google" size={24} color="#F12816" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.icons} >
+          <TouchableOpacity style={styles.icons} onPress={facebookSignIn} >
             <FontAwesome name="facebook" size={24} color="#F12816" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.icons} >
+          <TouchableOpacity style={styles.icons} onPress={signInWithTwitter} >
             <FontAwesome name="twitter" size={24} color="#F12816" />
           </TouchableOpacity>
 

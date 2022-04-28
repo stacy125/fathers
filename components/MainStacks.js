@@ -8,6 +8,9 @@ import Profile from '../screens/ProfileScreen';
 import Contact from '../screens/ContactScreen';
 import AboutUs from '../screens/AboutUsScreen';
 import OneEvent from '../search/OneEvent';
+// import HowItWorksAdd from '../screens/HowItWorksAdd';
+// import HowItWorksReview from '../screens/HowItWorkReview';
+// import HowItWorks from '../screens/HowItWorks';
 
 export default function MainStacks() {
 
@@ -26,7 +29,10 @@ export default function MainStacks() {
                 fontWeight: 'bold',
             }, }} >
             <MainStack.Screen name="Home" component={Home}  />
-            <MainStack.Screen name="Profile" component={Profile} />
+            {/* <MainStack.Screen name="Profile" component={Profile} /> */}
+            {/* <MainStack.Screen name="How it works" component={HowItWorks} />
+            <MainStack.Screen name="How it works Add" component={HowItWorksAdd} />
+            <MainStack.Screen name="How it works Review" component={HowItWorksReview} /> */}
             <MainStack.Screen name="Chosen Event" component={OneEvent}/>
             <MainStack.Screen name="Contact Us" component={Contact} />
             <MainStack.Screen name="About Us" component={AboutUs} />

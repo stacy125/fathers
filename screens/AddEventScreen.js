@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View, TextInput, Image } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Image, ScrollView } from 'react-native'
 import { Button } from 'react-native-paper'
 import React, { useState, useContext } from 'react'
 import Background from '../components/Background'
-import AddEventImage from '../assets/add-event-hero.png'
+import AddEventImage from '../assets/add-event.png'
 import { Context } from '../context/EventContext'
 
 
@@ -23,19 +23,18 @@ const AddEvent = () => {
       <View style={styles.eventContainer}>
         <Text style={styles.photoText}>Add an event you love to our</Text>
         <Text style={styles.photoText}>Dad-abase!</Text>
+        <ScrollView style={styles.container}>
         <Button style={styles.upBtn}>
           <Text style={styles.upload}>+ UPLOAD EVENT COVER PHOTO</Text>
         </Button>
-        <View style={styles.container}>
-
-          <Text>Title of Event</Text>
+          <Text style={{ margin: 5 }}>Title of Event</Text>
           <TextInput
             placeholder='Add Event Title'
             value={name}
             onChange={setName}
             style={styles.inputStyles}
           />
-          <Text>Type of Event</Text>
+          <Text style={{ margin: 5 }}>Type of Event</Text>
           <TextInput
             placeholder='Add the type of event'
             value={type}
@@ -43,45 +42,45 @@ const AddEvent = () => {
             style={styles.inputStyles}
           />
           {/* <Image>Event photo</Image> */}
-          <Text> Description</Text>
+          <Text style={{ margin: 5 }}> Description</Text>
           <TextInput
             placeholder='Add Description'
             value={description}
             onChange={setDescription}
             style={styles.inputStyles}
           />
-          <Text>URL</Text>
+          <Text style={{ margin: 5 }}>URL</Text>
           <TextInput
             placeholder='Price'
             value={url}
             onChange={setUrl}
             style={styles.inputStyles}
           />
-          <Text>Location:</Text>
+          <Text style={{ margin: 5 }}>Location:</Text>
           <TextInput
             placeholder='Location'
             value={location}
             onChange={setLocation}
             style={styles.inputStyles}
           />
-          <Text>Price</Text>
+          <Text style={{ margin: 5 }}>Price</Text>
           <TextInput
             placeholder='Price'
             value={cost}
             onChange={setCost}
             style={styles.inputStyles}
           />
-          <Text>Comment or tips</Text>
+          <Text style={{ margin: 5 }}>Comment or tips</Text>
           <TextInput
             placeholder='Add Comment'
             value={comment}
             onChange={setComment}
             style={styles.inputStyles}
           />
-        </View>
-        <Button style={styles.button} onPress={() => addEvent()}>
-          <Text style={styles.submit} >SUBMIT</Text>
-        </Button>
+          <Button style={styles.button} onPress={() => addEvent()}>
+            <Text style={styles.submit} >SUBMIT</Text>
+          </Button>
+        </ScrollView>
       </View>
     </Background>
   )
@@ -98,7 +97,7 @@ const styles = StyleSheet.create({
     bottom: 25
   },
   inputStyles: {
-    height: 25,
+    height: 35,
     borderColor: 'black',
     borderWidth: 1,
     borderColor: 'lightgray',
@@ -110,6 +109,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4.84,
     elevation: 5,
+    marginBottom: 10
   },
   upBtn: {
     borderWidth: 1,
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4.84,
     elevation: 5,
-    bottom: 35
+    bottom: 5
   },
   upload: {
     color: '#F12816'
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#F12816',
-    bottom: 15,
+    top: 10,
     borderWidth: 1,
     borderRadius: 14,
     borderColor: 'lightgray',
@@ -153,6 +153,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4.84,
     elevation: 5,
+    width: 250,
+    alignSelf: 'center',
+    marginBottom: 20
   },
   submit: {
     color: 'white'

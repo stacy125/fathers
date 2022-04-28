@@ -1,8 +1,14 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, Linking } from 'react-native'
 import React, { useState, useContext } from 'react';
 import { useRoute } from '@react-navigation/native';
-import { Title, Button } from 'react-native-paper';
+import { Title, Button, Card } from 'react-native-paper';
 import { Context, Provider } from '../context/EventContext';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import Save from '../assets/save-icon.png'
+import Map from '../assets/map-icon.png'
+import Review from '../assets/review-icon.png'
 
 
 const OneEvent = () => {
@@ -29,21 +35,30 @@ const OneEvent = () => {
     return (
         <Provider>
             <View key={id} style={styles.container} >
-                <Title style={{ textAlign: 'center', fontWeight: '800' }} >{name}</Title>
-                <Text>Description:  {description}</Text>
+                <Title style={{ textAlign: 'center', fontWeight: '800', fontSize: 25 }} >{name}</Title>
                 <View style={styles.imageContainer}>
                     <Image style={styles.imageStyle} source={{ uri: image_url }} />
                 </View>
-
-                <Text>Location:  {location.display_address}</Text>
+                <Card style={styles.card}>
+                    <Text style={{ marginHorizontal: 10, marginTop: 10 }} >Description:  {description}</Text>
+                    <Text style={{ marginHorizontal: 10, marginBottom: 10 }}>Location:  {location.display_address}</Text>
+                    <TouchableOpacity onPress={() => Linking.openURL(event_site_url)}>
+                        <Text style={{ color: '#F12816', left: 250, top: 5 }}>Visit Site</Text>
+                    </TouchableOpacity>
+                </Card>
                 <Free />
-                <TouchableOpacity onPress={() => Linking.openURL(event_site_url)}>
-                    <Text style={{ color: 'blue' }}>Event Website</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => Linking.openURL('https://maps.google.com')}>
-                    <Text style={{ color: 'blue' }}>Google Maps</Text>
-                </TouchableOpacity>
-                <View style={styles.comment}>
+                <View style={{ flexDirection: 'row', marginTop: 50, marginLeft: 50 }}>
+                    <TouchableOpacity>
+                        <MaterialIcons name="note-add" size={35} color='#F12816' style={{ marginLeft: 45 }}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => Linking.openURL('https://maps.google.com')}>
+                        <FontAwesome5 name="map-marked" size={35} color='#F12816' style={{ marginLeft: 45 }}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <FontAwesome name="bookmark" size={35} color='#F12816' style={{ marginLeft: 45 }}/>
+                    </TouchableOpacity>
+                </View>
+                {/* <View style={styles.comment}>
                     <Text>Comments or tips</Text>
                     <TextInput
                         placeholder='Why you choose this event? Your response goes here.'
@@ -55,8 +70,8 @@ const OneEvent = () => {
                         style={styles.textInput}
                         onChangeText={setComment}
                     />
-                </View>
-                    <Button onPress={addEvent}>Add Event</Button>
+                </View> */}
+                {/* <Button onPress={addEvent}>Add Event</Button> */}
             </View>
         </Provider>
     )
@@ -64,7 +79,7 @@ const OneEvent = () => {
 
 const styles = StyleSheet.create({
     container: {
-        margin: 20
+        margin: 10
     },
     imageContainer: {
         resizeMode: "contain",
@@ -81,14 +96,29 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4.84,
         elevation: 5,
+        alignSelf: 'center'
     },
     imageStyle: {
         width: '100%',
         height: '100%',
     },
-    textInput: {
-
-
+    card: {
+        marginHorizontal: 15,
+        borderColor: 'lightgray',
+        borderWidth: 2,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4.84,
+        elevation: 5,
+        width: '100%',
+        height: 170,
+        alignSelf: 'center',
+        textAlign: 'center',
+        marginBottom: 20
     },
     comment: {
         marginTop: 10,
