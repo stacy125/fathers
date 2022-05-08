@@ -30,7 +30,7 @@ const SigninScreen = () => {
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
-            // console.log(user);
+         
         }).then(user => {
             auth.onIdTokenChanged(user => {
                 if (user) {

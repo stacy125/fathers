@@ -1,23 +1,16 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import yelp from "../api/YelpAPI";
-import ResultsList from "./ResultsList";
-
-
+// import SearchBar, {} from "./SearchBar";
 
 export default function UseResults () {
     const [results, setResults] = useState([])
-    const [result, setResult] = useState([])
     const [error, setError] = useState("")
 
     const navigation = useNavigation()
     
     
     const searchApi = async (searchInput, searchLocation) => {
-       
-        console.log(searchInput, 'useResult') 
-        console.log(searchLocation, 'useL');
-        // console.log(results, 'hi');
        
         try {
             const respone = await yelp.get('', {
@@ -37,7 +30,7 @@ export default function UseResults () {
         searchApi('kid-friendly', 'NY')
     }, [])
 
-    // return [results, searchApi, error]
-    return <ResultsList results={results} navigation={navigation} />
+    return [results, searchApi, error]
+    // return <SearchBar searchApi={searchApi} results={results} navigation={navigation} />
     
 }

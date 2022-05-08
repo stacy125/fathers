@@ -27,7 +27,6 @@ const SignupScreen = ({ navigation }) => {
         createUserWithEmailAndPassword(auth, email, password)
             .then(userCredentials => {
                 const user = userCredentials.user
-                console.log(user);
             }).then(user => {
                 auth.onAuthStateChanged(user => {
                     if (user) {

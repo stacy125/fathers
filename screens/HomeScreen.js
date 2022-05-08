@@ -15,9 +15,6 @@ const HomeScreen = () => {
 const { signInWithGoogle, facebookSignIn, signInWithTwitter } = useAuth()
   const navigation = useNavigation()
 
-  console.log(signInWithGoogle, 'signInWithGoogle');
-  console.log(useAuth(), 'useAuth');
-
   // const signOut = async () => {
   //   try {
   //     await auth().signOut();

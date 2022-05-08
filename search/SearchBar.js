@@ -1,15 +1,59 @@
-import React, { useState } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, TextInput, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Feather } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import useResults from './UseResults';
+import { useNavigation } from '@react-navigation/native';
+import Events from '../screens/EventScreen';
+import OneEvent from './OneEvent';
 
 
+const SearchBar = ({navigation}) => {
 
-const SearchBar = ({ categories, location, onCategoryChange, onLocationChange, onSubmit, filterResultsByLowPrice, filterResultsByMediumPrice, filterResultsByExpensivePrice }) => {
+    const [searchInput, setSearchInput] = useState('')
+    const [searchLocation, setSearchLocation] = useState('')
+    const [results, searchApi, error] = useResults()
 
-    const [item, setItem] = useState()
-    console.log('searchBar');
+
+    const toggleEvent = () => {
+    
+    }
+    // const navigation = useNavigation()
+
+    const showEvent = () => {
+        return <OneEvent result={item} onPress={toggleEvent} />
+    }
+
+
+    const filterResultsByLowPrice = (cost) => {
+        // price === '$' || '$$' || '$$$'
+        if (cost === '$') {
+            return results.filter(result => {
+                return result.cost <= 50
+            })
+        }
+    }
+
+    const filterResultsByMediumPrice = (cost) => {
+        // price === '$' || '$$' || '$$$'
+        if (cost === '$$') {
+            return results.filter(result => {
+                return result.cost > 50 < 150
+            })
+        }
+    }
+
+    const filterResultsByExpensivePrice = (cost) => {
+        // price === '$' || '$$' || '$$$'
+        if (cost === '$$$') {
+            return results.filter(result => {
+                return result.cost > 150
+            })
+        }
+    }
+
+    const onSubmit = () => { searchApi(searchInput, searchLocation) }
 
 
     return (
@@ -23,8 +67,8 @@ const SearchBar = ({ categories, location, onCategoryChange, onLocationChange, o
                             autoCorrect={false}
                             style={styles.inputStyle2}
                             placeholder="Search by Category"
-                            value={categories}
-                            onChangeText={onCategoryChange}
+                            value={searchInput}
+                            onChangeText={(text) => setSearchInput(text)}
                             onEndEditing={onSubmit}
                         />
                     </View>
@@ -35,8 +79,8 @@ const SearchBar = ({ categories, location, onCategoryChange, onLocationChange, o
                             autoCorrect={false}
                             style={styles.inputStyle}
                             placeholder="Location by City"
-                            value={location}
-                            onChangeText={onLocationChange}
+                            value={searchLocation}
+                            onChangeText={(text) => setSearchLocation(text)}
                             onEndEditing={onSubmit}
                         />
                     </View>
@@ -45,6 +89,21 @@ const SearchBar = ({ categories, location, onCategoryChange, onLocationChange, o
                     <Button style={styles.button} title="$" onPress={filterResultsByLowPrice}>$</Button>
                     <Button style={styles.button} title='$$' onPress={filterResultsByMediumPrice}>$$</Button>
                     <Button style={styles.button} title='$$$' onPress={filterResultsByExpensivePrice}>$$$</Button>
+                </View>
+                <View style={styles.flatContainer}>
+                    <FlatList
+                        showsVerticalScrollIndicator
+                        data={results}
+                        keyExtractor={(result) => result.id}
+                        renderItem={({ item }) => {
+                            return (
+                                <TouchableOpacity
+                                    onPress={() => navigation.navigate('Event', {result: item })} >
+                                    <Events result={item} />
+                                </TouchableOpacity>
+                            )
+                        }}
+                    />
                 </View>
             </View>
         </>
@@ -112,7 +171,12 @@ const styles = StyleSheet.create({
         color: 'white',
         marginLeft: 5
     },
-
+    flatContainer: {
+        height: 450,
+        width: 350,
+        flexShrink: 1,
+        flexWrap: 'wrap'
+    }
 });
 
 export default SearchBar;

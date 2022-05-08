@@ -7,13 +7,11 @@ import { Title } from 'react-native-paper';
 const { width } = Dimensions.get("screen");
 
 const Events = ({ result }) => {
-    // console.log(result, 'events');
-
 
     return (
         <View style={styles.container}>
-            <Title style={{ marginLeft: 5 }}>Event Name: {result?.name} </Title>
-            <Text style={{ marginLeft: 5, marginBottom: 5 }}>Location:  {result?.location?.display_address}</Text>
+            <Title style={{ marginLeft: 15 }}>Event Name: {result?.name} </Title>
+            <Text style={{ margin: 15, textAlign: 'center', flexShrink: 1, flexWrap: 'wrap' }}>Location:  {result?.location?.display_address}</Text>
             <Card style={styles.imageContainer}>
                 <Image style={styles.imageStyle} source={{ uri: result?.image_url }} />
             </Card>         
@@ -47,7 +45,7 @@ const styles = StyleSheet.create({
         shadowRadius: 4.84,
         elevation: 5,
         borderWidth: 2,
-        margin: 10
+        margin: 10,
     },
     dataContainer: {
         // width: 335,
@@ -57,7 +55,7 @@ const styles = StyleSheet.create({
     imageContainer: {
         width: 335,
         height: 250,
-        alignSelf: 'center'
+        marginTop: 30
     },
     imageStyle: {
         width: '100%',
@@ -66,3 +64,4 @@ const styles = StyleSheet.create({
 })
 
 export default Events
+//change price to slider

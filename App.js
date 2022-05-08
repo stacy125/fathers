@@ -6,19 +6,13 @@ import { enableScreens } from "react-native-screens";
 import { Provider } from 'react-native-paper';
 import Theme from './components/Theme';
 import DrawerMenu from './menu/DrawerMenu';
-import MainStacks from './components/MainStacks'
 import Tabs from './menu/Tabs'
 import { Provider as ActionProvider } from './context/EventContext';
 import {AuthProvider} from './context/AuthContext';
 import Signup from './screens/SignupScreen';
 import Signin from './screens/SigninScreen';
-import Home from './screens/HomeScreen';
-import AddEvent from './screens/AddEventScreen';
-import Events from './screens/EventScreen';
-import Approved from './screens/SavedEventsScreen';
-import Profile from './screens/ProfileScreen';
-import Contact from './screens/ContactScreen';
-import AboutUs from './screens/AboutUsScreen';
+import OneEvent from './search/OneEvent';
+import Dashboard from './screens/Dashboard';
 import '@react-native-async-storage/async-storage'
 import Carousel from './components/Carousel';
 
@@ -41,7 +35,6 @@ export default function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-
   return (
     <Provider theme={Theme}>
       <AuthProvider>
@@ -49,9 +42,10 @@ export default function App() {
           <ActionProvider>
             <RootStack.Navigator initialRouteName='Home' >
               <RootStack.Screen name="Drawer" component={DrawerMenu} options={{ headerShown: false }} />
-              <RootStack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
-              <RootStack.Screen name="MainStacks" component={MainStacks} />
+              <RootStack.Screen name="Event" component={OneEvent} />
+              <RootStack.Screen name="Dashboard" component={Dashboard} />
               <RootStack.Screen name="CarouselStacks" component={Carousel} />
+              {/* <RootStack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} /> */}
               {!isLoggedIn && (
                 // Auth screens
                 <RootStack.Group>

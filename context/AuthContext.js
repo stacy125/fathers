@@ -99,7 +99,7 @@ export const AuthProvider = ({ children }) => {
                 const credential = FacebookAuthProvider.credential(token);
                 await signInWithCredential(auth, credential)
                     .then(user => { // All the details about user are in here returned from firebase
-                        console.log('Logged in successfully', user)
+                        console.log('Logged in successfully')
                     })
                     .catch((error) => {
                         console.log('Error occurred ', error)
@@ -131,7 +131,7 @@ export const AuthProvider = ({ children }) => {
 };
 
 export default function useAuth() {
-    console.log(AuthContext);
+    // console.log(AuthContext);
     return useContext(AuthContext)
 }
 
