@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TextInput, Image, ScrollView, Modal } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Button, Title } from 'react-native-paper';
 import React, { useState, useEffect } from 'react';
 import Background from '../components/Background';
 import AddEventImage from '../assets/add-event.png';
@@ -7,32 +7,58 @@ import Fil from '../components/Fil-logo';
 import Logo from '../components/Logo';
 import { auth, db } from '../secret/firebase';
 import { setDoc, doc } from "firebase/firestore";
+import Slider from '@react-native-community/slider';
 
 
-const AddEvent = () => {
+const AddEvent = ({navigation}) => {
 
   const [name, setName] = useState('')
   const [type, setType] = useState('')
   const [location, setLocation] = useState('')
   const [description, setDescription] = useState('')
   const [cost, setCost] = useState('')
-  const [url, setUrl] = useState('')
+  const [age, setAge] = useState('')
+  const [event_site_url, setEvent_site_url] = useState('')
   const [comment, setComment] = useState('')
   const [visible, setVisible] = useState(false)
-  const [image_URL, setImage_URL] = useState('')
+  const [image_url, setImage_url] = useState('')
+  const [height, setHeight] = useState()
+  const [size, setSize] = useState()
+  const [ty, setTy] = useState(false)
 
 
   const addEvent = async () => {
     auth
-    await setDoc(doc(db, "events", 'event.id'), {
-      id, name, image_url, location, description, event_site_url, cost, is_free
+    await setDoc(doc(db, "events", 'events.name'), {
+       name, image_url, location, description, event_site_url, cost, age
     });
+  }
+
+  const updateSize = () => {
+    setHeight(height)
+  }
+  const updateHeight = () => {
+    setSize(size)
   }
 
 
   const toggleModal = () => {
     setVisible(!visible);
   };
+  const toggleTy = () => {
+    setTy(!ty);
+    console.log('this works');
+  };
+
+  const submitToggle = () => {
+    toggleTy()
+    addEvent()
+  }
+
+  const goToEvent = () => {
+    toggleTy()
+    navigation.navigate('Find Event')
+  }
 
   return (
     <Background>
@@ -47,7 +73,7 @@ const AddEvent = () => {
           </View>
           <View style={styles.modalContainer}>
             <Text style={styles.modalText}>Image URL</Text>
-            <TextInput style={styles.modalInput} placeholder='put your URL link here' value={image_URL} onChangeText={(text) => setImage_URL(text)} />
+            <TextInput style={styles.modalInput} placeholder='put your URL link here' value={image_url} onChangeText={(text) => setImage_url(text)} />
             <Button title="UPLOAD IMAGE" style={styles.imgBtn} onPress={toggleModal}>
               <Text style={{ color: 'white', textAlign: 'center' }}>UPLOAD IMAGE</Text>
               </Button>
@@ -75,6 +101,8 @@ const AddEvent = () => {
           <Text style={{ margin: 5 }}> Description</Text>
           <TextInput
             placeholder='Add Description'
+            multiline={true}
+            onContentSizeChange={(e) => updateHeight(e.nativeEvent.contentSize.height)}
             value={description}
             onChangeText={(text) => setDescription(text)}
             style={styles.inputStyles}
@@ -82,8 +110,8 @@ const AddEvent = () => {
           <Text style={{ margin: 5 }}>Event Link</Text>
           <TextInput
             placeholder='www.something.com'
-            value={url}
-            onChangeText={(text) => setUrl(text)}
+            value={event_site_url}
+            onChangeText={(text) => setEvent_site_url(text)}
             style={styles.inputStyles}
           />
           <Text style={{ margin: 5 }}>Event Location</Text>
@@ -94,23 +122,63 @@ const AddEvent = () => {
             style={styles.inputStyles}
           />
           <Text style={{ margin: 5 }}>Price</Text>
-          <TextInput
-            placeholder='Price'
-            value={cost}
-            onChangeText={(text) => setCost(text)}
-            style={styles.inputStyles}
+          <View style={{flexDirection: 'row'}}>
+          <Text>FREE</Text>
+          <Slider
+            style={{ width: 200, height: 20 }}
+            minimumValue={0}
+            maximumValue={100}
+            step={10}
+            onValueChange={setCost}
+            minimumTrackTintColor='#F12816'
+            maximumTrackTintColor="lightgray"
           />
+          <Text>${cost}</Text>
+          </View>
+          <Text style={{ margin: 5 }}>Age</Text>
+          <View style={{flexDirection: 'row'}}>
+          <Text>0</Text>
+          <Slider
+            style={{ width: 200, height: 20 }}
+            minimumValue={0}
+            maximumValue={22}
+            step={1}
+            onValueChange={setAge}
+            minimumTrackTintColor='#F12816'
+            maximumTrackTintColor="lightgray"
+          />
+          <Text>{age}</Text>
+          </View>
           <Text style={{ margin: 5 }}>Comment or tips</Text>
           <TextInput
             placeholder='Add Comment'
             value={comment}
+            multiline={true}
+            onContentSizeChange={(e) => updateSize(e.nativeEvent.contentSize.height) }
             onChangeText={(text) => setComment(text)}
             style={styles.inputStyles}
           />
-          <Button style={styles.button} onPress={addEvent}>
+          <Button style={styles.button} onPress={submitToggle}>
             <Text style={styles.submit} >SUBMIT</Text>
           </Button>
         </ScrollView>
+        <Modal visible={ty} animationType='slide'  >
+          <View style={styles.ty}>
+          <Fil style={{ marginLeft: 20 }} />
+          <Logo style={styles.logo} />
+            <Title style={{fontSize: 32, fontWeight: 'bold', textAlign: 'center', marginTop: 50}}>THANK YOU!</Title>
+            <View
+              style={{
+                borderBottomColor: '#F12816',
+                borderBottomWidth: 1,
+                marginVertical: 30
+              }}
+            />
+            <Text style={{textAlign: 'center', fontSize: 20, fontWeight: '500', marginBottom: 40}}>With every event you add and like our DAD-ABASE gets better!</Text>
+              <Button style={styles.button} onPress={goToEvent}><Text style={{ color: 'white' }}>ALL EVENTS</Text> </Button>
+              <Button style={styles.modalButton} onPress={toggleTy}><Text style={{ color: '#F12816' }}>ADD ANOTHER EVENT</Text> </Button>
+          </View>
+        </Modal>
       </View >
     </Background >
   )
@@ -251,6 +319,27 @@ const styles = StyleSheet.create({
   },
   submit: {
     color: 'white'
+  }, 
+  modalButton: {
+    backgroundColor: 'white',
+    top: 10,
+    borderWidth: 1,
+    borderRadius: 14,
+    borderColor: 'lightgray',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4.84,
+    elevation: 5,
+    width: 250,
+    alignSelf: 'center',
+    marginBottom: 20
+  }, 
+  ty: {
+    marginVertical: 20
   }
 })
 
