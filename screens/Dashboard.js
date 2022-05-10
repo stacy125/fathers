@@ -49,7 +49,7 @@ const Dashboard = ({ show, toggleDashboard }) => {
     return (
         <View>
             <Modal visible={show} animationType='slide' navigation={navigation} onModalClose={toggleDashboard}>
-                <View style={{ flexDirection: "row", alignSelf: 'center', marginVertical: 50 }}>
+                <View style={{ flexDirection: "row", alignSelf: 'center', marginVertical: 40 }}>
                     <Button style={styles.topButton} onPress={toggleDashboard}>
                         <Text style={styles.topText}>YOUR ACCOUNT</Text>
                     </Button>
@@ -58,7 +58,7 @@ const Dashboard = ({ show, toggleDashboard }) => {
                         <Text style={styles.topText}>DASHBOARD</Text>
                     </Button>
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10, marginBottom: 30 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10, marginBottom: 20 }}>
                     <TouchableOpacity onPress={() => {setColor(!color)}} >
                         <Text style={{ color: color ? '#747688' : '#F12816' }}>SAVED EVENTS</Text>
                     </TouchableOpacity>

@@ -29,7 +29,7 @@ const AddEvent = ({navigation}) => {
 
   const addEvent = async () => {
     auth
-    await setDoc(doc(db, "events", 'events.name'), {
+    await setDoc(doc(db, "events", 'events.event'), {
        name, image_url, location, description, event_site_url, cost, age
     });
   }

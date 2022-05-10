@@ -88,6 +88,10 @@ const Profile = () => {
     setShow(!show);;
   };
 
+  if(!user){
+    return null
+  }
+
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row", alignSelf: 'center' }}>
@@ -114,11 +118,6 @@ const Profile = () => {
         <Button style={{ fontSize: 14 }} onPress={emailChange}>
           <Text style={styles.editText}>change email</Text>
         </Button>
-        {/* <View style={styles.pushContainer} >
-          <Text style={styles.push} >Push Notifications</Text>
-          <Button style={styles.outerButton} />
-          <Button style={styles.pushButton} />
-        </View> */}
       </View>
       <View style={{ flexDirection: "row", bottom: 20 }}>
         <Button style={styles.reset} onPress={toggleModal}>
