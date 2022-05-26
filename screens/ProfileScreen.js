@@ -72,9 +72,9 @@ const Profile = () => {
 
   const Photo = () => {
     if (user.photoURL) {
-      return <Image source={profile} style={styles.image} />
-    } else {
       return <Image source={user.photoURL} style={styles.image} />
+    } else {
+      return <Image source={profile} style={styles.image} />
     }
   }
 
